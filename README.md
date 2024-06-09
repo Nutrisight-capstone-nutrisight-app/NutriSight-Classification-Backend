@@ -19,7 +19,7 @@ This is backend for classification of food product image from user request.
 3. Activate venv
 
    ```bash
-   pip install -r requirements.txt
+   ./.venv/Script/activate
    ```
 
 4. Install dependency
