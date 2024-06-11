@@ -9,3 +9,5 @@ htmlcov/
 .tox/
 docs/_build/
 uploads/
+.env
+nutrisight-3617630e0fef.json
