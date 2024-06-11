@@ -2,13 +2,12 @@ import os
 from uuid import uuid4
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
-import sys
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from google.cloud import storage
 from google.oauth2 import service_account
-
 from PIL import Image
+import requests 
 import numpy as np
 
 UPLOAD_FOLDER = 'uploads'
@@ -16,7 +15,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 # Config
 app = Flask(__name__)
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 CREDENTIALS = service_account.Credentials.from_service_account_file(os.environ.get('CREDENTIAL_PATH'))
 CLIENT = storage.Client(credentials=CREDENTIALS)
 BUCKET = CLIENT.bucket(os.environ.get('BUCKET_NAME'))
@@ -65,14 +64,18 @@ def post_predict():
     else :
         return jsonify({"message": "Unsuported file format"}), 400
     
-    # Image
+    # Image Processing
     image = Image.open(file)
     image = image.resize((224, 224))
     image = tf.keras.preprocessing.image.img_to_array(image) / 255.0
     
     try :
+        # Get product
         prediction = predict(model, image)
-        return jsonify({"message" : "Success", "prediction" : str(prediction)}), 200
+        req_product = requests.get(os.environ.get('PRODUCT_SERVICE_URL') + '/' + str(prediction))
+        req_product = req_product.json()
+        
+        return req_product, 200
     
     except:
         return jsonify({"message" : "Server error"}), 500
