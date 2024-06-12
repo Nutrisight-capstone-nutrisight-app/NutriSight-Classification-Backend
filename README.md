@@ -71,7 +71,7 @@ POST /predict
 
 Get prediction product from image clasification model.
 
-**Response :**
+**Response code 200 :**
 
 ```json
 {
@@ -101,5 +101,33 @@ Get prediction product from image clasification model.
     "sugarLevel": 1,
     "updateAt": "2024-06-12T11:37:01.639Z"
   }
+}
+```
+
+**Response code 400 :**
+
+```json
+{
+  "message": "Filename already exist"
+}
+```
+
+```json
+{
+  "message": "Please insert image"
+}
+```
+
+```json
+{
+  "message": "Unsuported file format"
+}
+```
+
+**Response code 500 :**
+
+```json
+{
+  "message": "Server error"
 }
 ```
