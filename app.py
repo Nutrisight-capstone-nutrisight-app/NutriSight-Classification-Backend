@@ -24,7 +24,7 @@ model = load_model('./model/model.h5')
 
 @app.route('/')
 def index():
-    return jsonify({"message" : "NutriSight API v0.1.0 : Request Success"}), 200
+    return jsonify({"message" : "NutriSight API v1.0.0 : Request Success"}), 200
 
 def allowed_file(filename):
     return '.' in filename and \
