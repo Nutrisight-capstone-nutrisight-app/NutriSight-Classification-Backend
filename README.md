@@ -34,100 +34,101 @@ This is backend for classification of food product image from user request.
    python app.py
    ```
 
-## Endpoint Lists
+### Endpoint Lists
 
-```bash
-GET /
-```
-
-- **Params :**
-  - None
-- **Request Headers :**
-  - Content-Type : application/json
+1. Entry Endpoint
 
 This is the application first endpoint. You can use this endpoint if you want to check the API version or test the connection.
 
-**Response code 200 :**
-
-```json
-{
-  "message": "NutriSight API v1.0.0 : Request Success"
-}
+```http
+GET /
 ```
 
----
+- **Response**
 
-```bash
+  - **Code 200**
+
+  ```json
+  {
+    "message": "NutriSight API v1.0.0 : Request Success"
+  }
+  ```
+
+2. Product Prediction
+
+Upload product image and get product data
+
+```http
 POST /predict
 ```
 
-- **Params :**
-  - None
-- **Request Headers :**
-  - Content-Type : application/json
-- **Request Body :**
-  - image : image.jpg
-    - supported image file : jpg, jpeg, and png
+- **Require body**
 
-Get prediction product from image clasification model.
+  |  Key  | Type |
+  | :---: | :--: |
+  | image | File |
 
-**Response code 200 :**
+  - supported image file : jpg, jpeg, and png
 
-```json
-{
-  "product": {
-    "carbohydrate": 15,
-    "category": "Food",
-    "createdAt": "2024-06-12T11:37:01.639Z",
-    "energyFat": 40,
-    "energyTotal": 100,
-    "fatGrade": "B",
-    "fatLevel": 2,
-    "fatTotal": 4.5,
-    "gradeAll": "B",
-    "id": 0,
-    "levelAll": 2,
-    "name": "Chitato",
-    "natrium": 60,
-    "natriumGrade": "A",
-    "natriumLevel": 1,
-    "netWeight": 180,
-    "protein": 0,
-    "saturatedFat": 2,
-    "servingAmount": 9,
-    "servingSize": 20,
-    "sugar": 1,
-    "sugarGrade": "A",
-    "sugarLevel": 1,
-    "updateAt": "2024-06-12T11:37:01.639Z"
+- **Response**
+
+  - **Code 200**
+
+  ```json
+  {
+    "product": {
+      "carbohydrate": 15,
+      "category": "Food",
+      "createdAt": "2024-06-12T11:37:01.639Z",
+      "energyFat": 40,
+      "energyTotal": 100,
+      "fatGrade": "B",
+      "fatLevel": 2,
+      "fatTotal": 4.5,
+      "gradeAll": "B",
+      "id": 0,
+      "levelAll": 2,
+      "name": "Chitato",
+      "natrium": 60,
+      "natriumGrade": "A",
+      "natriumLevel": 1,
+      "netWeight": 180,
+      "protein": 0,
+      "saturatedFat": 2,
+      "servingAmount": 9,
+      "servingSize": 20,
+      "sugar": 1,
+      "sugarGrade": "A",
+      "sugarLevel": 1,
+      "updateAt": "2024-06-12T11:37:01.639Z"
+    }
   }
-}
-```
+  ```
 
-**Response code 400 :**
+  - **Code 400**
 
-```json
-{
-  "message": "Filename already exist"
-}
-```
+  ```json
+  {
+    "message": "Filename already exist"
+  }
+  ```
 
-```json
-{
-  "message": "Please insert image"
-}
-```
+  ```json
+  {
+    "message": "Please insert image"
+  }
+  ```
 
-```json
-{
-  "message": "Unsuported file format"
-}
-```
+  ```json
+  {
+    "message": "Unsuported file format"
+  }
+  ```
 
-**Response code 500 :**
+  - **Code 500**
 
-```json
-{
-  "message": "Server error"
-}
-```
+  ```json
+  {
+    "message": "Server error"
+  }
+  ```
